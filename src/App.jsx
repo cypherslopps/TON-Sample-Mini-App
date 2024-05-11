@@ -4,7 +4,7 @@ import Home from "./pages/Home"
 
 function App() {
   return (
-    <main className="py-2.5 px-3.5">
+    <main className="py-2.5 px-2">
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
