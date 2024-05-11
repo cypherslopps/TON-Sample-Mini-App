@@ -4,7 +4,7 @@ import { TonWalletProvider } from "./TonWalletProvider"
 
 const Provider = ({ children }) => {
   return (
-    <TonConnectUIProvider manifestUrl="https://sample-app.vercel.app/tonconnect-manifest.json">
+    <TonConnectUIProvider manifestUrl="https://ton-sample-mini-app.vercel.app/tonconnect-manifest.json">
         <TonWalletProvider>
             {children}
         </TonWalletProvider>

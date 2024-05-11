@@ -8,13 +8,13 @@ const WalletConnect = () => {
       {isConnected ? (
         <button
           onClick={disconnect}
-          className='bg-purple-500 text-white text-[.82rem] w-full rounded-lg py-1.5 active:scale-[.97] transition-all duration-300'
+          className='bg-purple-500 text-white text-[.82rem] w-full rounded-lg py-1.5 active:scale-[.98] transition-all duration-300'
         >
           {address}
         </button>
       ) : (
         <button
-          className='bg-purple-500 text-white text-[.82rem] w-full rounded-lg py-1.5 active:scale-[.97] transition-all duration-300'
+          className='bg-purple-500 text-white text-[.82rem] w-full rounded-lg py-1.5 active:scale-[.98] transition-all duration-300'
           onClick={connect}
         >
           Connect wallet

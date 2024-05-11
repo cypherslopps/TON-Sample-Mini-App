@@ -15,7 +15,7 @@ const Portal = () => {
           src={HamsterHead}
           alt="hamster portal"
         />
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center gap-y-1'>
           <p className='text-sm '>Connect wallet to access DAPP</p>
           <WalletConnect />
         </div>
