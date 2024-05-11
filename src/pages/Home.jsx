@@ -33,7 +33,7 @@ const Home = () => {
           ))}
         </header>
 
-        <section className="mt-3.5 space-y-2">
+        <section className="mt-3 -space-y-1">
           <div className="flex justify-center items-center gap-x-1">
             <img 
               src={Coin}

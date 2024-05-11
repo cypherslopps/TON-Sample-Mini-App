@@ -12,7 +12,8 @@ export default {
           bg: "#282B30",
           border: "#2E3136"
         },
-        textGray: "#97989D"
+        textGray: "#97989D",
+        gold: "#EBBF3A"
       }
     },
   },
