@@ -18,7 +18,7 @@ const Game = () => {
           </div>
         </div>
         <div className="progress h-3 rounded-full bg-progress-bg border border-progress-border overflow-hidden">
-          <div className="w-1/2 h-full bg-gradient-to-tr from-emerald-500 to-purple-500" />
+          <div className="w-1/2 h-full bg-gradient-to-r from-emerald-500 via-pink-400/80 to-purple-500 rounded-full" />
         </div>
       </div>
     </main>
