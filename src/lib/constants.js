@@ -25,27 +25,27 @@ export const features = [
 export const navigationLinks = [
     {
         title: "Exchange",
-        route: "/exchange",
+        route: "/app/exchange",
         image:  Binance
     },
     {
         title: "Mine",
-        route: "/mine",
+        route: "/app/mine",
         Icon:  Icons.flower
     },
     {
         title: "Friends",
-        route: "/referrals",
+        route: "/app/referrals",
         Icon:  Icons.usersGroup
     },
     {
         title: "Earn",
-        route: "/earn",
+        route: "/app/earn",
         Icon:  Icons.coin
     },
     {
         title: "Airdrop",
-        route: "/airdrop",
+        route: "/app/airdrop",
         image:  Coin
     }
 ];

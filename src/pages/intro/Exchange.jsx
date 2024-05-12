@@ -1,19 +1,26 @@
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import { Game, SEO } from "../components";
-import { features } from "../lib/constants";
-import Coin from "../assets/images/coin.png";
+import { Game, SEO } from "../../components";
+import { features } from "../../lib/constants";
+import Coin from "../../assets/images/coin.png";
 import { useEffect, useState } from 'react';
 
 const Exchange = () => {
-  const balance = 10135;
   const [isLoading, setIsLoading] = useState(false);
+  const [currentScore, setCurrentScore] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      const getCurrentScore = localStorage.getItem('currentScore') ? JSON.parse(localStorage.getItem('currentScore')) : 0;
+      setCurrentScore(getCurrentScore);
+    }, 100);
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
 
     setTimeout(() => {
       setIsLoading(false);
-    }, 50000);
+    }, 50);
   }, []);
 
   return (
@@ -56,12 +63,15 @@ const Exchange = () => {
                 <Skeleton height={50} containerClassName="w-40 h-9 -mt-4" />
               </SkeletonTheme>
             ) : (
-              <h1 className="text-[1.75rem] font-extrabold text-white">{balance.toLocaleString()}</h1>
+              <h1 className="text-[1.75rem] font-extrabold text-white">{currentScore.toLocaleString()}</h1>
             )}
           </div>
 
           {/* Game */}
-          <Game />
+          <Game 
+            setCurrentScore={setCurrentScore}
+            currentScore={currentScore}
+          />
         </section>
     </>
   )

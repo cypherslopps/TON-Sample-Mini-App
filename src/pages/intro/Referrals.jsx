@@ -1,4 +1,4 @@
-import { SEO } from '../components'
+import { SEO } from '../../components'
 
 const Referrals = () => {
   return (

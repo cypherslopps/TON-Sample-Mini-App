@@ -1,24 +1,103 @@
+import PropTypes from "prop-types";
+import { useEffect, useRef, useState } from "react";
 import Icons from "./Icons"
 import Hamster from "../assets/images/hamster.png";
 import Bolt from "../assets/images/bolt.png";
 import Rocket from "../assets/images/rocket.png";
-// import "../lib/tap-game";
-import { useEffect, useRef, useState } from "react";
-import { initialzeGame } from "../lib/tap-game";
 
-const Game = () => {
-  const canvasRef = useRef();
-  const [progressCount, setProgressCount] = useState(0);
+
+const Game = ({ setCurrentScore, currentScore }) => {
+  const canvasRef = useRef(null);
+  const ctx = useRef(null);
+  const [currentLevelTarget, setCurrentLevelTarget] = useState(300);
+  const [currentLevel, setCurrentLevel] = useState(1);
 
   useEffect(() => {
     setTimeout(() => {
-      setProgressCount(50);
-    }, 700);
+      const getCurrentLevelTarget = localStorage.getItem('currentLevelTarget') ? JSON.parse(localStorage.getItem('currentLevelTarget')) : 300;
+      const getCurrentLevel = localStorage.getItem('currentLevel') ? JSON.parse(localStorage.getItem('currentLevel')) : 1;
+
+      setCurrentLevelTarget(getCurrentLevelTarget);
+      setCurrentLevel(getCurrentLevel);
+    }, 100);
   }, []);
 
   useEffect(() => {
-    initialzeGame(canvasRef.current);
-  }, []);
+    const canvas = canvasRef.current;
+    
+    if (canvas) {
+      ctx.current = canvas?.getContext("2d");
+
+      canvas.width = innerWidth - 100;
+      canvas.height = 224;
+
+      canvas.addEventListener("click", tapGame);
+    }
+
+    return () => canvas?.removeEventListener("click", tapGame);
+  }, [tapGame]);
+
+  function tapGame(e) {
+    const player = new Player(e.pageX, e.pageY);
+
+    const score = currentScore + 2;
+    setCurrentScore(score);
+    localStorage.setItem("currentScore", score);
+
+    if (currentScore >= currentLevelTarget) {
+      const level = currentLevel + 1;
+      const levelTarget = Math.floor(currentLevelTarget * 1.7);
+
+      setCurrentLevelTarget(levelTarget);
+      localStorage.setItem("currentLevelTarget", levelTarget);
+      
+      setCurrentLevel(level);
+      localStorage.setItem("currentLevel", level);
+    }
+
+    function animate() {
+      ctx.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+      player.update();
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }
+
+  class Text {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.dy = 1;
+    }
+
+    draw() {
+      ctx.current.font = "20px Inter";
+      ctx.current.fillStyle = "white";
+      ctx.current.fillText("2X", this.x, this.y);
+    }
+  }
+
+  class Player {
+    constructor(x, y) {
+      this.x = (x / 3);
+      this.y = (y / 3);
+      this.radius = 20;
+    }
+
+    draw() {
+      ctx.current.beginPath();
+      ctx.current.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+    }
+    
+    update() {
+      this.draw();
+      
+      const text = new Text(this.x, this.y * 1);
+      text.draw();
+    }
+  }
 
   return (
     <main className="space-y-6 pb-[4rem]">
@@ -33,14 +112,14 @@ const Game = () => {
           {/* Level */}
           <div className="space-x-1">
             <span className="text-textGray text-[.73rem]">Level</span>
-            <span className="text-white text-[.73rem] font-bold">2/5</span>
+            <span className="text-white text-[.73rem] font-bold">{currentLevel}</span>
           </div>
         </div>
         <div className="progress h-3 rounded-full bg-progress-bg border border-progress-border overflow-hidden">
           <div 
             className={`h-full bg-gradient-to-r from-emerald-500 via-pink-400/80 to-purple-500 rounded-full transition-all duration-500`} 
             style={{
-              width: `${progressCount}%`
+              width: `${(currentScore / currentLevelTarget) * 100}%`
             }}
           />
         </div>
@@ -81,6 +160,11 @@ const Game = () => {
       </section>     
     </main>
   )
+}
+
+Game.propTypes = {
+  currentScore: PropTypes.number,
+  setCurrentScore: PropTypes.func
 }
 
 export default Game
