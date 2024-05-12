@@ -11,7 +11,7 @@ const Portal = () => {
 
   useEffect(() => {
       if (isConnected) {
-          return navigate("/app");
+          return navigate("/app/exchange");
       }
   }, [isConnected, navigate]);
 
