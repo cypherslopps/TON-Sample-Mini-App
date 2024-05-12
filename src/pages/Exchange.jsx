@@ -1,15 +1,26 @@
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import { Game, SEO } from "../components";
 import { features } from "../lib/constants";
 import Coin from "../assets/images/coin.png";
+import { useEffect, useState } from 'react';
 
-const Home = () => {
+const Exchange = () => {
   const balance = 10135;
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 50000);
+  }, []);
 
   return (
     <>
         <SEO 
-            title="Home"
-            description="Sample App Intro"
+            title="Exchange"
+            description="Sample App Exchange"
         />
 
         <header className="grid grid-cols-[max-content_1fr_max-content] gap-x-1">
@@ -40,7 +51,13 @@ const Home = () => {
               alt="balance"
               className="w-[18%] object-cover"
             />
-            <h1 className="text-[1.75rem] font-extrabold text-white">{balance.toLocaleString()}</h1>
+            {isLoading ? (
+              <SkeletonTheme baseColor="#202020" highlightColor="#444">
+                <Skeleton height={50} containerClassName="w-40 h-9 -mt-4" />
+              </SkeletonTheme>
+            ) : (
+              <h1 className="text-[1.75rem] font-extrabold text-white">{balance.toLocaleString()}</h1>
+            )}
           </div>
 
           {/* Game */}
@@ -50,4 +67,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Exchange

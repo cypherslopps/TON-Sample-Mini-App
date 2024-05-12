@@ -2,12 +2,26 @@ import Icons from "./Icons"
 import Hamster from "../assets/images/hamster.png";
 import Bolt from "../assets/images/bolt.png";
 import Rocket from "../assets/images/rocket.png";
-import "../lib/tap-game";
+// import "../lib/tap-game";
+import { useEffect, useRef, useState } from "react";
+import { initialzeGame } from "../lib/tap-game";
 
 const Game = () => {
+  const canvasRef = useRef();
+  const [progressCount, setProgressCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setProgressCount(50);
+    }, 700);
+  }, []);
+
+  useEffect(() => {
+    initialzeGame(canvasRef.current);
+  }, []);
 
   return (
-    <main className="space-y-6">
+    <main className="space-y-6 pb-[4rem]">
       {/* Game Header */}
       <div className="w-full space-y-0.5">
         <div className="flex items-center justify-between">
@@ -23,15 +37,20 @@ const Game = () => {
           </div>
         </div>
         <div className="progress h-3 rounded-full bg-progress-bg border border-progress-border overflow-hidden">
-          <div className="w-1/2 h-full bg-gradient-to-r from-emerald-500 via-pink-400/80 to-purple-500 rounded-full" />
+          <div 
+            className={`h-full bg-gradient-to-r from-emerald-500 via-pink-400/80 to-purple-500 rounded-full transition-all duration-500`} 
+            style={{
+              width: `${progressCount}%`
+            }}
+          />
         </div>
       </div>
 
       {/* Game */}
       <section className="flex flex-col items-center gap-y-4">
-        <div className="flex items-center justify-center bg-purple-600/90 w-[75%] h-52 rounded-full border-8 border-purple-500 shadow-inner shadow-purple-550 relative">
-          <canvas className="w-full h-full"></canvas>
-          <figure className="absolute top-1/2 left-1/2 w-[45%] pointer-events-none -translate-x-1/2 -translate-y-1/2">
+        <div className="flex items-center justify-center bg-purple-600/90 w-[75%] h-56 rounded-full border-8 border-purple-500 shadow-inner shadow-purple-550 relative z-30 overflow-hidden">
+          <canvas ref={canvasRef} className="w-full h-full z-40"></canvas>
+          <figure className="-z20 absolute top-1/2 left-1/2 w-[45%] pointer-events-none -translate-x-1/2 -translate-y-1/2">
             <img 
               src={Hamster}
               alt="hamster"

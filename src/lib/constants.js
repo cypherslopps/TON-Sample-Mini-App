@@ -1,5 +1,6 @@
 import Coin from "../assets/images/coin.png";
 import Binance from "../assets/images/binance.svg";
+import { Icons } from "../components";
 
 export const features = [
     {
@@ -24,27 +25,27 @@ export const features = [
 export const navigationLinks = [
     {
         title: "Exchange",
-        route: "/",
+        route: "/exchange",
         image:  Binance
     },
     {
         title: "Mine",
         route: "/mine",
-        image:  Binance
+        Icon:  Icons.flower
     },
     {
         title: "Friends",
         route: "/referrals",
-        image:  Binance
+        Icon:  Icons.usersGroup
     },
     {
         title: "Earn",
         route: "/earn",
-        image:  Binance
+        Icon:  Icons.coin
     },
     {
         title: "Airdrop",
         route: "/airdrop",
-        image:  Binance
+        image:  Coin
     }
 ];
