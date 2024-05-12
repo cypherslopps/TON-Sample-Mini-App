@@ -9,6 +9,11 @@ import Rocket from "../assets/images/rocket.png";
 const Game = ({ setCurrentScore, currentScore }) => {
   const canvasRef = useRef(null);
   const ctx = useRef(null);
+  const notifierRef = useRef(null)
+  const [clickedState, setClickedState] = useState({
+    x: 0,
+    y: 0
+  })
   const [currentLevelTarget, setCurrentLevelTarget] = useState(300);
   const [currentLevel, setCurrentLevel] = useState(1);
 
@@ -38,7 +43,26 @@ const Game = ({ setCurrentScore, currentScore }) => {
   }, [tapGame]);
 
   function tapGame(e) {
-    const player = new Player(e.pageX, e.pageY);
+    setClickedState(prop => ({
+      ...prop,
+      x: e.offsetX - 20,
+      y: e.offsetY - 20
+    }));
+
+    console.log(e.offsetX, e.offsetY, (e.offsetX + 20) - canvasRef.current.width / 2, (e.offsetY + 20) - canvasRef.current.height / 2);
+
+    const player = new Player(e.offsetX - 100, e.offsetY - 100);
+
+    // Show Notifier
+    notifierRef.current.classList.remove("opacity-0");
+    notifierRef.current.classList.add("opacity-1");
+    notifierRef.current.classList.add("fadeOut");
+
+    setTimeout(() => {
+      notifierRef.current.classList.remove("opacity-1");
+      notifierRef.current.classList.add("opacity-0");
+      notifierRef.current.classList.remove("fadeOut");
+    }, 1000);
 
     const score = currentScore + 2;
     setCurrentScore(score);
@@ -94,8 +118,9 @@ const Game = ({ setCurrentScore, currentScore }) => {
     update() {
       this.draw();
       
-      const text = new Text(this.x, this.y * 1);
-      text.draw();
+      // const text = new Text(this.x, this.y * 1);
+      // text.draw();
+      
     }
   }
 
@@ -127,8 +152,18 @@ const Game = ({ setCurrentScore, currentScore }) => {
 
       {/* Game */}
       <section className="flex flex-col items-center gap-y-4">
-        <div className="flex items-center justify-center bg-purple-600/90 w-[75%] h-56 rounded-full border-8 border-purple-500 shadow-inner shadow-purple-550 relative z-30 overflow-hidden">
+        <div className="flex items-center justify-center bg-purple-600/90 w-[75%] h-56 xl:w-[60%] xl:h-64  rounded-full border-8 border-purple-500 shadow-inner shadow-purple-550 relative z-30 overflow-hidden">
           <canvas ref={canvasRef} className="w-full h-full z-40"></canvas>
+          <span 
+            className="absolute pointer-events-none text-[1.6rem] z-50 font-extrabold"
+            ref={notifierRef}
+            style={{
+              left: `${clickedState.x}%`,
+              top: `${clickedState.y}%`
+            }}
+          >
+            2X
+          </span>
           <figure className="-z20 absolute top-1/2 left-1/2 w-[45%] pointer-events-none -translate-x-1/2 -translate-y-1/2">
             <img 
               src={Hamster}

@@ -42,7 +42,7 @@ NavigationLink.propTypes = {
 
 const Navigation = () => {
   return (
-    <nav className="bg-progress-bg fixed bottom-2 left-1/2 -translate-x-1/2 w-[95%] rounded-lg p-1.5">
+    <nav className="bg-progress-bg fixed bottom-2 left-1/2 -translate-x-1/2 w-[95%] rounded-lg p-1.5 z-[100]">
       <ul className="flex items-center justify-between gap-x-1">
         {navigationLinks.map(link => (
           <NavigationLink 

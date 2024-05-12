@@ -8,4 +8,22 @@
     background: #1C1F24;
     color: #ffffffdf;
   }
+
+  .fadeOut {
+    animation: fadeOut .3s ease-in-out forwards;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      transform: translateY(0) scale(1);
+    } 25% {
+      transform: translateY(10%) scale(1.1);
+    } 50% {
+      transform: translateY(20%) scale(1.25);
+    } 75% {
+      transform: translateY(25%) scale(1.4);
+    } 100% {
+      transform: translateY(35%) scale(1.6);
+    }
+  }
 }
