@@ -24,7 +24,7 @@ const useTelegramAPI = () => {
             setIsLoading(false);
         }, 1000);
 
-        tgUserID && setUserID(tgUserID);
+        setUserID(tgUserID);
     }, [getTelegramUserId]); 
     
     return {
